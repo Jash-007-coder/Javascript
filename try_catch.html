@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Try Catch Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        button {
+            margin: 10px;
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Division Example (Error Handling)</h2>
+<p>Enter two numbers to divide:</p>
+<input type="number" id="num1" placeholder="Number 1">
+<input type="number" id="num2" placeholder="Number 2">
+<button onclick="performDivision()">Divide</button>
+
+<p id="result"></p>
+
+<script>
+    function performDivision() {
+        let num1 = document.getElementById('num1').value;
+        let num2 = document.getElementById('num2').value;
+        let resultElement = document.getElementById('result');
+
+        try {
+            num1 = parseFloat(num1);
+            num2 = parseFloat(num2);
+            
+            if (isNaN(num1) || isNaN(num2)) {
+                throw new Error('Both inputs must be valid numbers');
+            }
+            if (num2 === 0) {
+                throw new Error('Division by zero is not allowed');
+            }
+
+            let result = num1 / num2;
+            resultElement.textContent = `Result: ${result}`;
+        } catch (error) {
+            resultElement.textContent = `Error: ${error.message}`;
+        }
+    }
+</script>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async Try Catch Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        button {
+            margin: 10px;
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Fetching User Data with Async/Await and Error Handling</h2>
+<button onclick="fetchData()">Fetch User Data</button>
+
+<p id="result"></p>
+
+<script>
+    async function fetchData() {
+        let resultElement = document.getElementById('result');
+        
+        try {
+            let response = await fetch('https://jsonplaceholder.typicode.com/users/1');  // This is a valid user ID
+            if (!response.ok) {
+                throw new Error('Network error: Failed to fetch data');
+            }
+            let data = await response.json();
+            resultElement.textContent = `User Name: ${data.name}, Email: ${data.email}`;
+        } catch (error) {
+            resultElement.textContent = `Error: ${error.message}`;
+        }
+    }
+</script>
+
+</body>
+</html>
